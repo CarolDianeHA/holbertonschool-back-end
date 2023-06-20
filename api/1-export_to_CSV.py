@@ -28,6 +28,6 @@ if __name__ == '__main__':
 
     with open(csv_filename, mode='w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
+        # writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
         for item in info:
             writer.writerow([user_id, username, item['completed'], item['title']])
