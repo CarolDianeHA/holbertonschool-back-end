@@ -34,4 +34,3 @@ if __name__ == '__main__':
         if items['completed'] is True:
             task = items['title']
             print(f"\t {task}")
-
