@@ -9,9 +9,7 @@ import csv
 if __name__ == '__main__':
 
     user_id = sys.argv[1]
-
     api_url = "https://jsonplaceholder.typicode.com"
-
     url = f"{api_url}/users/{user_id}/todos"
     users = f"{api_url}/users?id={user_id}"
     data = requests.get(url)
@@ -27,7 +25,7 @@ if __name__ == '__main__':
     csv_filename = f"{user_id}.csv"
 
     with open(csv_filename, mode='w', newline='') as file:
-        writer = csv.writer(file)
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
         # writer.writerow(["USER_ID", "USERNAME",
         # "TASK_COMPLETED_STATUS", "TASK_TITLE"])
 
