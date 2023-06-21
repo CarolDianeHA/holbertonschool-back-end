@@ -7,32 +7,28 @@ import sys
 
 
 if __name__ == '__main__':
-    user_id = sys.argv[1]
+
+    emp_id = sys.argv[1]
+
     api_url = "https://jsonplaceholder.typicode.com"
-    url = f"{api_url}/users/{user_id}/todos"
-    users = f"{api_url}/users?id={user_id}"
-    data = requests.get(url)
-    info = data.json()
-    users_names = requests.get(users)
-    response = users_names.json()
 
-    for user in response:
-        username = user['username']
+    url = f"{api_url}/users/{emp_id}/todos"
+    resp = requests.get(url)
+    emp_tasks = resp.json()
 
-    json_filename = f"{user_id}.json"
-    json_data = {user_id: []}
+    url = f"{api_url}/users/{emp_id}"
+    resp = requests.get(url)
+    emp_info = resp.json()
 
-    data_list = []
-    final_dictionary = {}
-    for item in info:
-        done = item['completed']
-        task_title = item['title']
-        json_data[user_id].append({
-            "task": task_title,
-            "completed": done,
-            "username": username
-        })
-        data_list.append(json_data)
-    final_dictionary[user_id] = data_list
-    with open(json_filename, mode='w') as file:
-        json.dump(json_data, file, indent=4)
+    emp_todos = [
+        {
+            'task': task.get('title'),
+            'completed': task.get('completed'),
+            'username': emp_info.get('username'),
+        }
+        for task in emp_tasks
+    ]
+    output_json = {emp_id: emp_todos}
+
+    with open(f"{emp_id}.json", mode="w") as f:
+        json.dump(output_json, f, indent=2)
