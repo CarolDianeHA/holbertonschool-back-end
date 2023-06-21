@@ -22,6 +22,8 @@ if __name__ == '__main__':
     json_filename = f"{user_id}.json"
     json_data = {user_id: []}
 
+    data_list = []
+    final_dictionary = {}
     for item in info:
         done = item['completed']
         task_title = item['title']
@@ -30,6 +32,7 @@ if __name__ == '__main__':
             "completed": done,
             "username": username
         })
-
+        data_list.append(json_data)
+    final_dictionary[user_id] = data_list
     with open(json_filename, mode='w') as file:
         json.dump(json_data, file, indent=4)
